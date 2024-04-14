@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor-User Chat</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            height: 100%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .chat-box {
+            height: 100%;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message .sender {
+            font-weight: bold;
+        }
+
+        .input-group {
+            padding: 5px 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-group input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .input-group button {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 0 5px 5px 0;
+            background: #0f0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-box" id="chatBox">
+            <!-- Chat messages will be dynamically added here -->
+        </div>
+        <div class="input-group">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+
+            if (message !== '') {
+                const chatBox = document.getElementById('chatBox');
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                newMessage.innerHTML = `<span class="sender">You:</span> ${message}`;
+                chatBox.appendChild(newMessage);
+
+                // Store message in session storage with a timestamp
+                const now = new Date();
+                const timestamp = now.getTime(); // Current timestamp in milliseconds
+                const messageData = { message, timestamp };
+                sessionStorage.setItem('chatMessage', JSON.stringify(messageData));
+
+                // Clear input field after sending message
+                messageInput.value = '';
+
+                // Schedule message removal after 30 minutes (1800000 milliseconds)
+                setTimeout(() => {
+                    sessionStorage.removeItem('chatMessage');
+                    chatBox.innerHTML = ''; // Clear chat box
+                }, 1800000); // 30 minutes in milliseconds
+            }
+        }
+
+        // Check for existing chat message in session storage on page load
+        window.onload = function() {
+            const chatBox = document.getElementById('chatBox');
+            const storedMessage = sessionStorage.getItem('chatMessage');
+
+            if (storedMessage) {
+                const messageData = JSON.parse(storedMessage);
+                const { message, timestamp } = messageData;
+                const now = new Date();
+                const currentTime = now.getTime();
+                const elapsedTime = currentTime - timestamp;
+
+                if (elapsedTime < 1800000) { // Less than 30 minutes
+                    const newMessage = document.createElement('div');
+                    newMessage.classList.add('message');
+                    newMessage.innerHTML = `<span class="sender">You:</span> ${message}`;
+                    chatBox.appendChild(newMessage);
+                } else {
+                    sessionStorage.removeItem('chatMessage');
+                }
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Appointment Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            border-left: 4px solid #49a6e9;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        input[type="date"],
+        input[type="time"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%2349a6e9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        input[type="submit"] {
+            background-color: #49a6e9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2575b2;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            select,
+            input[type="date"],
+            input[type="time"],
+            input[type="submit"] {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register for a Doctor's Appointment</h2>
+        <div class="info">
+            <p>Please fill in your details and select a time slot.</p>
+            <p>Please note that the time slot duration is for the entire appointment.</p>
+        </div>
+        <form id="appointmentForm" action="#" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mobile">Mobile No:</label>
+            <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+
+            <label for="time_period">Select Time Period:</label>
+            <select id="time_period" name="time_period" required>
+                <option value="30min">30 Minutes</option>
+                <option value="1hr">1 Hour</option>
+                <option value="2hr">2 Hours</option>
+            </select>
+
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" name="date" min="2024-04-14" required>
+
+            <input type="submit" value="Book Appointment" onclick="redirect()">
+        </form>
+    </div>
+    <script>
+        function redirect(){
+            window.location.href='payment.html';
+        }
+    </script>
+</body>
+</html>
