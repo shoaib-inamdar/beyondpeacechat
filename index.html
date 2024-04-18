@@ -128,13 +128,28 @@
 
             <label for="date">Select Date:</label>
             <input type="date" id="date" name="date" min="2024-04-14" required>
-
-            <input type="button" value="Book Appointment" onclick="redirect()">
+            <input type="button" value="Book Appointment" onclick="saveFormDataAndRedirect()">
         </form>
     </div>
+    
     <script>
-        function redirect(){
-            window.location.href='payment.html';
+       function saveFormDataAndRedirect() {
+            // Get form data
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var mobile = document.getElementById("mobile").value;
+            var time_period = document.getElementById("time_period").value;
+            var date = document.getElementById("date").value;
+
+            // Store form data in local storage
+            localStorage.setItem("name", name);
+            localStorage.setItem("email", email);
+            localStorage.setItem("mobile", mobile);
+            localStorage.setItem("time_period", time_period);
+            localStorage.setItem("date", date);
+
+            // Redirect to the other HTML page
+            window.location.href = 'payment.html';
         }
     </script>
 </body>

@@ -57,17 +57,13 @@
 </head>
 <body>
     <div class="container">
-        <h2>Payment for Doctor's Appointment</h2>
-        <div class="payment-info">
-            <h3>Appointment Details:</h3>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> johndoe@example.com</p>
-            <p><strong>Mobile No:</strong> 123-456-7890</p>
-            <p><strong>Date:</strong> 2024-04-15</p>
-            <p><strong>Time:</strong> 10:00 AM - 11:00 AM</p>
-            <p><strong>Duration:</strong> 1 Hour</p>
-            <p><strong>Total Amount:</strong> $50</p>
-        </div>
+        <h2>Appointment Details</h2>
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Mobile No:</strong> <span id="mobile"></span></p>
+        <p><strong>Time Period:</strong> <span id="time_period"></span></p>
+        <p><strong>Date:</strong> <span id="date"></span></p>
+    </div>
         <div class="qr-code">
             <img class="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=9518972921@ybl&pn=Your%20Name&mc=1234&tid=123456&tr=TestPayment">
             <p>Scan the QR code with your UPI app to proceed with the payment.</p>
@@ -75,6 +71,12 @@
         <button onclick="chat()">Open chat</button>
     </div>
     <script>
+        document.getElementById("name").textContent = localStorage.getItem("name");
+        document.getElementById("email").textContent = localStorage.getItem("email");
+        document.getElementById("mobile").textContent = localStorage.getItem("mobile");
+        document.getElementById("time_period").textContent = localStorage.getItem("time_period");
+        document.getElementById("date").textContent = localStorage.getItem("date");
+
         function chat(){
             window.location.href='chat_website.html'
         }
